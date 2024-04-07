@@ -52,7 +52,23 @@ async function mailMeals(sundaymeal,sundayweather) {
     });
   
     console.log("Message sent: %s", info.messageId);
+  };
+
+  async function discordPost(mealMessage) {
+    const discordHook = process.env.discordHook; 
+    const message = {
+      username: "Meal Bot",
+      content: mealMessage, // The message content
+    };
+  
+    try {
+      await axios.post(discordHook, message);
+      console.log("Message posted to Discord successfully!");
+    } catch (error) {
+      console.error("Error posting message to Discord:", error);
+    }
   }
+  
   
 
 async function init(){
@@ -79,7 +95,37 @@ async function init(){
     console.log(chalk.yellow(`Congratulations, your meal for Wednesday is ${randomMealRecipeWed.Meal.value} please review the ingredients needed- ${randomMealRecipeWed.Ingredients.value}`));
     console.log(chalk.whiteBright(`Congratulations, your meal for Thursday is ${randomMealRecipeThurs.Meal.value} please review the ingredients needed- ${randomMealRecipeThurs.Ingredients.value}`));
     console.log(chalk.red(`Congratulations, your meal for Friday is ${randomMealRecipeFri.Meal.value} please review the ingredients needed- ${randomMealRecipeFri.Ingredients.value}`));
+    try{
     const mailed = await mailMeals(randomMealRecipeSun,weather.daily[2].weather[0].description);
+   }catch(err){
+    console.log(chalk.red(err));
+   }
+   try{
+    let message = `**This week's meals are:**
+
+    **Sunday:** Congratulations, your meal for Sunday is ${randomMealRecipeSun.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeSun.Ingredients.value}
+    
+    **Monday:** Congratulations, your meal for Monday is ${randomMealRecipeMon.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeMon.Ingredients.value}
+    
+    **Tuesday:** Congratulations, your meal for Tuesday is ${randomMealRecipeTues.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeTues.Ingredients.value}
+    
+    **Wednesday:** Congratulations, your meal for Wednesday is ${randomMealRecipeWed.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeWed.Ingredients.value}
+    
+    **Thursday:** Congratulations, your meal for Thursday is ${randomMealRecipeThurs.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeThurs.Ingredients.value}
+    
+    **Friday:** Congratulations, your meal for Friday is ${randomMealRecipeFri.Meal.value}. 
+      Please review the ingredients needed: ${randomMealRecipeFri.Ingredients.value}
+    `; 
+    await discordPost(message);
+  }catch(err){
+    console.log(chalk.red(err))
+  }
+
 }
 
 init();
