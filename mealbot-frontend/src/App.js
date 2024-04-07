@@ -3,15 +3,13 @@ import Greeting from './components/Greeting';
 import DailyInfo from './components/DailyInfo';
 
 function App() {
-  // Simulated data - replace this with actual data fetching logic
+  // placeholder data
   const meals = [
     { Day: 'Sunday', Meal: { value: 'Spaghetti' }, Ingredients: { value: 'Pasta, Tomato Sauce, Cheese' } },
-    // Add other days
   ];
   
   const weather = [
     { day: 'Sunday', description: 'Sunny', temp: { max: 75, min: 65 } },
-    // Add other days
   ];
 
   return (
