@@ -40,7 +40,7 @@ const init = async()=> {
       const randomMealNum = Math.floor(Math.random() * dayMeals.rows.length);
       const randomMealRecipe = dayMeals.rows[randomMealNum];
       const dayForecast = weather.daily[index];
-      const formattedDate = moment.unix(dayForecast.dt).format('dddd MMMM DD, YYYY');
+      const formattedDate = moment.unix(dayForecast.dt).format('dddd, MMMM DD, YYYY');
 
       console.log(chalkColors[index % chalkColors.length](`Congratulations, your meal for ${formattedDate} is ${randomMealRecipe.Meal.value}. Please review the ingredients needed- ${randomMealRecipe.Ingredients.value} Weather Forecast: ${dayForecast.weather[0].description}, High: ${dayForecast.temp.max}°, Low: ${dayForecast.temp.min}°`));
 

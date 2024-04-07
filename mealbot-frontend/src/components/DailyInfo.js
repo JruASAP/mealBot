@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
-function DailyInfo({ day, weather }) {
-  const [meals, setMeals] = useState([]);
+function DailyInfo() {
+  const [weeklyData, setWeeklyData] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/meals')
       .then(response => response.json())
       .then(data => {
-        setMeals(data); // Assuming data is an array of meals
+        setWeeklyData(data); 
       })
       .catch(error => console.error('There was an error!', error));
-  }, [day]); // If you want to re-fetch when 'day' changes
+  }, []); 
 
   return (
     <div>
-      <h2>{day}</h2>
-      {meals.map((meal, index) => (
+      {weeklyData && weeklyData.meals.map((meal, index) => (
         <div key={index}>
-          <p>Meal: {meal.name}</p> {/* Adjust according to your data structure */}
-          <p>Ingredients: {meal.ingredients}</p> {/* Adjust according to your data structure */}
+          <h2>{meal.date}</h2> 
+          <p>Meal: {meal.meal}</p>
+          <p>Ingredients: {meal.ingredients}</p>
+          <p>Weather: {meal.forecast}</p> 
+          <p>High: {meal.tempHigh}°, Low: {meal.tempLow}°</p>
         </div>
       ))}
-      {weather && (
-        <>
-          <p>Weather: {weather.description}</p>
-          <p>High: {weather.temp.max}°, Low: {weather.temp.min}°</p>
-        </>
-      )}
     </div>
   );
 }
