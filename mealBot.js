@@ -103,4 +103,5 @@ Weather Forecast: ${dayForecast.weather[0].description}, High: ${dayForecast.tem
   };
 };
 
+
 init();
