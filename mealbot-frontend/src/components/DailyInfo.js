@@ -4,7 +4,7 @@ function DailyInfo() {
   const [weeklyData, setWeeklyData] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/meals')
+    fetch('http://mealbotapp.com/api/meals')
       .then(response => response.json())
       .then(data => {
         setWeeklyData(data); 
