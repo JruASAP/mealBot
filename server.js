@@ -7,10 +7,16 @@ const {init} = require('./mealBotBackend');
 app.use(cors());
 
 app.get('/api/meals', async (req, res) => {
-  const meals = await init();
-  console.log(meals)
-  res.json(meals);
-});
+    try {
+      const meals = await init();
+      console.log(meals);
+      res.json(meals);
+    } catch (error) {
+      console.error('Failed to fetch meals:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 
 
 app.listen(port, () => {
